@@ -4,7 +4,7 @@
 ### Roles
 * Overall Project Manager:
 * Coding Manager:
-* Testing Manager:
+* Testing Manager: Sunny Patel
 * Documentation:
 
 ### Contributions
