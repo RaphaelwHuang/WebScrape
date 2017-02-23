@@ -8,29 +8,91 @@ class Scraper
   def initialize
     @agent = Mechanize.new
     @page = @agent.get(@@url)
+    @form = @page.forms.first
   end
 
   # Author: Sunny Patel   2/21
   # Displays all the fields for the first form
   def display_fields
-    form = get_form
-    form.fields.each {|f| puts f.name}
+    @form.fields.each {|f| puts f.name}
   end
 
   # Author Sunny Patel    2/21
-  # Fills in the searchbar on the posting page and submits form
+  # Fills in keywords search bar on the posting page
   # Modifications:
   # Sunny Patel 2/22: Fixed to switch page to submitted form
   def search(query)
-    form = get_form
-    form['query'] = query
-    @page = form.submit
+    @form['query'] = query
   end
 
+  # Author Sunny Patel & Kenton Steiner   2/23
+  # Fills in university title search bar
+  def university_title(query)
+    @form['578'] = query
+  end
+
+  # Author Sunny Patel & Kenton Steiner   2/23
+  # Fills in working title search bar
+  def working_title(query)
+    @form['577'] = query
+  end
+
+  # Author Sunny Patel & Kenton Steiner   2/23
+  # Fills in job opening number search bar
+  def job_opening_number(query)
+    @form['579'] = query
+  end
+
+  # Author Sunny Patel & Kenton Steiner   2/23
+  # Selects a location in the form
+  # 1 = columbus
+  # 2 = lima
+  # 3 = mansfield
+  # 4 = marion
+  # 5 = newark
+  # 6 = wooster
+  # 8 = delaware
+  # 9 = springfield
+  # 10 = piketon
+  # 11 = dayton
   def location(value)
-    form = get_form
-    form['591'] = value
-    @page = form.submit
+    @form['591'] = value
+  end
+
+  # Author Sunny Patel & Kenton Steiner   2/23
+  # Selects a job category
+  # 2 = instructional/faculty
+  # 3 = adminstrative and professional
+  # 4 = information technology
+  # 5 = research
+  # 6 = civil service
+  def job_category(value)
+    @form['580'] = value
+  end
+
+  # Author Sunny Patel & Kenton Steiner   2/23
+  # Selects from full/part time category
+  # 4 = full time
+  # 5 = part time
+  # 6 = temporary
+  # 7 = term
+  def job_time(value)
+    @form['581'] = value
+  end
+
+  # Author Sunny Patel & Kenton Steiner   2/23
+  # Selects a time period to search
+  # "day" = last day
+  # "week" = last week
+  # "month" = last month
+  def posted_within(value)
+    @form['query_v0_posted_at_date'] = value
+  end
+
+  # Author Sunny Patel    2/23
+  # Submits form
+  def submit_form
+    @page = @form.submit
   end
 
   # Author Sunny Patel    2/22
@@ -82,8 +144,6 @@ class Scraper
   # Author Sunny Patel    2/23
   # Prints all the information in a super_array
   def print_info_array(super_array)
-    puts super_array.class
-    puts
     super_array.each do |sub_array|
       sub_array.each {|item| puts item}
       puts
@@ -102,12 +162,15 @@ class Scraper
   def next_page
     @page.link_with(:text => /Next/)
   end
-
-  # Author: Sunny Patel   2/21
-  def get_form
-    @page.forms.first
-  end
 end
 
 # REMEMBER TO CLEAN UP THIS BOTTOM PORTION
 jobSite = Scraper.new
+jobSite.search('program')
+jobSite.posted_within('month')
+jobSite.job_time('4')
+jobSite.location('1')
+jobSite.submit_form
+array = jobSite.get_position_info
+jobSite.print_info_array(array)
+puts array.length
