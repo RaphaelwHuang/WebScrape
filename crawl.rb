@@ -1,9 +1,11 @@
 require 'mechanize'
 require 'nokogiri'
+
 # Author: Sunny Patel   2/21
 class Scraper
   @@url = 'https://www.jobsatosu.com/postings/search'
   @@basicInformationCount = 6
+
   # Author: Sunny Patel   2/21
   def initialize
     @agent = Mechanize.new
@@ -102,21 +104,28 @@ class Scraper
   # Modifications:
   # Sunny Patel 2/22: Returns an array so that the information can be accessed
   def search_for_selectors(search, expectedCount)
+    # get all links for current page
+    links = get_position_links
+    # count used to put all information for 1 position in 1 array
     count = 1
+    # link_index used to add the appropriate links to array
+    link_index= 0
     # Sub array that will hold the information of 1 position
-    position_array = []
+    job_content = []
     # Super array that holds information of all positions
-    positions_array = []
+    job_array = []
     @page.search(search).each do |selector|
-      position_array << selector.text.strip
+      job_content << selector.text.strip
       if count % expectedCount == 0
-        positions_array << position_array
-        position_array = []
+        job_content << links[link_index]
+        link_index += 1
+        job_array << job_content
+        job_content = []
       end
       count += 1
     end
     # Return super array
-    positions_array
+    job_array
   end
 
   # Author Sunny Patel    2/22
@@ -130,15 +139,15 @@ class Scraper
   # RETURNS: Array that contains subarrays which contain all the basic information for 1 position from all pages
   def get_position_info
     initial_page = @page
-    position_array = get_position_single_page
+    job_array = get_position_single_page
     # Loop until there is no next page
     while link = next_page
       @page = link.click
-      position_array = position_array + get_position_single_page
+      job_array += get_position_single_page
     end
     # restores page to initial page
     @page = initial_page
-    position_array
+    job_array
   end
 
   # Author Sunny Patel    2/23
@@ -148,6 +157,17 @@ class Scraper
       sub_array.each {|item| puts item}
       puts
     end
+  end
+
+  # Author Sunny Patel    2/23
+  # Returns an array with all the position links on a single page
+  def get_position_links
+    # Get all links that have the text: "View Details"
+    links = @page.links_with(:text => /View Details/)
+    href_links = []
+    # convert all links into an appropriate html link
+    links.each { |link| href_links << 'https://www.jobsatosu.com' + link.href }
+    href_links
   end
 
   private
@@ -163,14 +183,3 @@ class Scraper
     @page.link_with(:text => /Next/)
   end
 end
-
-# REMEMBER TO CLEAN UP THIS BOTTOM PORTION
-jobSite = Scraper.new
-jobSite.search('program')
-jobSite.posted_within('month')
-jobSite.job_time('4')
-jobSite.location('1')
-jobSite.submit_form
-array = jobSite.get_position_info
-jobSite.print_info_array(array)
-puts array.length
