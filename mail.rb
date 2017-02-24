@@ -12,13 +12,12 @@ options = { :address          => "smtp.gmail.com",
 Mail.defaults do 
  delivery_method :smtp, options
 end
-
-puts "Would you like the results emailed to you? (yes/no) "
-yesno = gets
-if yesno.casecmp("yes") then
+yesno = 0
+puts "Would you like the results emailed to you? (0 for yes, 1 for no) "
+yesno = gets.chomp.to_i
+if yesno == 0 
  	puts "What email would you like your results sent to? "
  	user_email = gets
-
  	Mail.deliver do
  		to 	user_email
  		from 'Server <mail@gmail.com>'
@@ -27,4 +26,6 @@ if yesno.casecmp("yes") then
  		add_file 'default.html.erb'
 	end
 
+else 
+	puts "No email will be sent!"
 end
