@@ -97,36 +97,6 @@ class Scraper
     @page = @form.submit
   end
 
-  # Author Sunny Patel    2/22
-  # Get the text of all selectors that match search
-  # expectedCount the number of elements expected in 1 subarray
-  # RETURNS: A (super)array of (sub)arrays that contains all the information for 1 position
-  # Modifications:
-  # Sunny Patel 2/22: Returns an array so that the information can be accessed
-  def search_for_selectors(search, expectedCount)
-    # get all links for current page
-    links = get_position_links
-    # count used to put all information for 1 position in 1 array
-    count = 1
-    # link_index used to add the appropriate links to array
-    link_index= 0
-    # Sub array that will hold the information of 1 position
-    job_content = []
-    # Super array that holds information of all positions
-    job_array = []
-    @page.search(search).each do |selector|
-      job_content << selector.text.strip
-      if count % expectedCount == 0
-        job_content << links[link_index]
-        link_index += 1
-        job_array << job_content
-        job_content = []
-      end
-      count += 1
-    end
-    # Return super array
-    job_array
-  end
 
   # Author Sunny Patel    2/22
   # Will pretty print the page
@@ -171,6 +141,37 @@ class Scraper
   end
 
   private
+  # Author Sunny Patel    2/22
+  # Get the text of all selectors that match search
+  # expectedCount the number of elements expected in 1 subarray
+  # RETURNS: A (super)array of (sub)arrays that contains all the information for 1 position
+  # Modifications:
+  # Sunny Patel 2/22: Returns an array so that the information can be accessed
+  def search_for_selectors(search, expectedCount)
+    # get all links for current page
+    links = get_position_links
+    # count used to put all information for 1 position in 1 array
+    count = 1
+    # link_index used to add the appropriate links to array
+    link_index= 0
+    # Sub array that will hold the information of 1 position
+    job_content = []
+    # Super array that holds information of all positions
+    job_array = []
+    @page.search(search).each do |selector|
+      job_content << selector.text.strip
+      if count % expectedCount == 0
+        job_content << links[link_index]
+        link_index += 1
+        job_array << job_content
+        job_content = []
+      end
+      count += 1
+    end
+    # Return super array
+    job_array
+  end
+
   # Author Sunny Patel    2/22
   # Get an array of subarrays of the all the basic information for 1 position from 1 page
   def get_position_single_page
