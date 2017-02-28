@@ -1,7 +1,9 @@
+#Author: Sunny Patel and Kenton Steiner   2/23
 require 'mechanize'
 require 'nokogiri'
 
 # Author: Sunny Patel   2/21
+# Scraper class to take information from a website
 class Scraper
   @@url = 'https://www.jobsatosu.com/postings/search'
   @@basicInformationCount = 6

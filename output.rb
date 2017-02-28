@@ -14,7 +14,7 @@
 		erbContent = File.read(erbFile);
 
 
-		#All the values
+		#Intialize the values of the search fileds to array positions
 		position = array[0];
 		title = array[1];
 		department = array[2];
@@ -23,6 +23,7 @@
 		salary = array[5];
 		link = array[6];
 
+		# Row format of the HTML table on the output webpage
 		@content +=format("
 		<tr><td>%s</td>
 		<td>%s</td>
@@ -43,25 +44,25 @@
 
 
 
-	#Jennifer Alarcon
+	#Jennifer Alarcon 2/27
 	#Get user input for email daily sign ups for job content
 	def getInput(crawl)
 
 		clearScreen
 
-		#GET POSITION INFO
+		# Get User input for Position Info field
 		if (position_keyword = getPosInfo) != ""
 			crawl.search position_keyword
 		end
 		clearScreen
 
 		
-		#GET POSTED WITHIN
+		#Job posted within search field options
 		if(within = getPostedWithin) != ""
-			#can only be 1 2 3
-			while /^(1|2|3)$/.match(within) == nil && within != ""
+			#Input can only be a digit between 1-3
+			while /^[1-3]$/.match(within) == nil && within != ""
 				clearScreen
-				puts "⚠ Invalid Entry. ⚠ Please Try Again! "
+				puts "\t\t⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
 				within = getPostedWithin
 			end
 			if within != "" 
@@ -71,12 +72,12 @@
 		end
 		clearScreen
 
-		#GET LOCATION INFO
+		#Allow user to choose job location
 		if (locationVal = getLocationInfo) != ""
-			#1 -11
+			#Input must be a number between 1 and 11
 			while /^([1-9]|10|11)$/.match(locationVal) == nil && locationVal != ""
 				clearScreen
-				puts "⚠ Invalid Entry. ⚠ Please Try Again! "
+				puts "\t\t\⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
 				locationVal = getLocationInfo
 			end
 
@@ -86,18 +87,18 @@
 		end
 		clearScreen
 
-		#GET UNIVERISTY TITLE
+		#Allow user to input a specific University title
 		if (u_titleVal = getUnviversitytitle) != ""
 			crawl.university_title u_titleVal
 		end
 		clearScreen
 
-		#GET JOB CATEGORY INPUT
+		#Allow user to pick a specific job category
 		if(job_catVal = getJobInput) != ""
-			#3456
+			#Input must be a digit between 3 and 6
 			while /^[3-6]$/.match(job_catVal) == nil && job_catVal != ""
 				clearScreen
-				puts "⚠ Invalid Entry.⚠ Please Try Again! "
+				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				job_catVal = getJobInput
 			end
 			if within != "" 
@@ -106,42 +107,41 @@
 		end 
 		clearScreen
 
-		#GET WORKING TITLE
+		#Allow user to input specific working title for a job
 		if(working_titleVal = getWorkingTitle) != ""
 			crawl.working_title working_titleVal
 		end
 		clearScreen
 
-		#GET JOB OPENING NUMBER
+		#Allow user to input a specific job opening number
 		if(jobopen_num = getJobOpening) != ""
-			#only numbers
-			while /^[\d]+$/.match(jobopen_num) == nil && jobopen_num != ""
+			#Input can only contain numbers
+			while /^\d+$/.match(jobopen_num) == nil && jobopen_num != ""
 				clearScreen
-				puts "⚠ Invalid Entry.⚠ Please Try Again! "
+				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				jobopen_num = getJobOpening
 			end
 
 			if within != "" 
 				crawl.job_opening_number jobopen_num
 			end
-
 		end
 		clearScreen
 
 
-		#GET JOB TYPE
+		#Allow user to pick the type of the job
 		if(job_type = getJobType) != ""
-			#4-7
+			# Must be between 4-7
 			while /^[4-7]$/.match(job_type) == nil && job_type != ""
 				clearScreen
-				puts "⚠ Invalid Entry.⚠ Please Try Again! "
+				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				job_type = getJobType
 			end
 			crawl.job_time job_type
 		end
 		clearScreen
 
-		#GET EMAIL 
+		#Ask for user to input their email address if they want results emailed 
 		emailUser
 
 
@@ -150,95 +150,98 @@
 		end
 
 
-	#Jennifer Alarcon
+	#Jennifer Alarcon 2/27
 	#Checks to see if user entered appropriate location
 	#use regEx
 	def validiateLocation
 		return true
 	end
 
+	#Jennifer Alarcon 2/27
+	#Clears the screen for the next input prompt
 	def clearScreen
 		system "clear"
 	end
 
 
-	#Jennifer Alarcon
-	#GET POSITION INFO
+	#Jennifer Alarcon 2/27
+	#Ask user to enter information for the Keywords: search field on the website
 	#Returns input
 	def getPosInfo
 		puts "Enter the keywords for postion or press enter if nothing to enter: "
 		position_keyword = gets.chomp!
 	end
 
-	#Jennifer Alarcon
-	#GET POSTED WITHIN
+	#Jennifer Alarcon 2/27
+	#Allows user to select a time period in the posted Within search field
 	#Returns input
 	def getPostedWithin
-		puts "Enter number corresponding to jobs post within designated time or press enter if nothing to input: "
-		puts "Posted within:\n\t1 = Last Day\n\t2 = Last Week\n\t3 = Last Month"
+		puts "Enter number corresponding to jobs posted within designated time or press enter if nothing to input: "
+		puts "\n\t1 = Last Day\n\t2 = Last Week\n\t3 = Last Month\n\nPosted within number:"
 		post_within = gets.chomp!
 	end
 
-	#Jennifer Alarcon
-	#GET LOCATION INFO
+	#Jennifer Alarcon 2/27
+	#Allows user to pick a location from the Location search field
 	#Returns input
 	def getLocationInfo
 		puts "Enter number corresponding to location or press enter if nothing to input: "
-		puts "\n\t1 = Columbus\n\t2 = Lima\n\t3 = Mansfield\n\t4 = Marion\n\t5 = Newark\n\t6 = Wooster\n\t8 = Delaware\n\t9 = Springfield\n\t10 = Piketon\n\t11 = Dayton"
+		puts "\n\t1 = Columbus\n\t2 = Lima\n\t3 = Mansfield\n\t4 = Marion\n\t5 = Newark\n\t6 = Wooster\n\t8 = Delaware\n\t9 = Springfield\n\t10 = Piketon\n\t11 = Dayton\n\nLocation number:"
 		location = gets.chomp!
 	end
 
-	#Jennifer Alarcon
-	#GET UNIVERISTY TITLE
+	#Jennifer Alarcon 2/27
+	#Allows user to enter terms in the University Title search field
 	#Returns input
 	def getUnviversitytitle
 		puts "Enter unviersity title or press enter if nothing to input: "
 		univeristy_title = gets.chomp!
 	end
 
-	#Jennifer Alarcon
-	#GET JOB CATEGORY INPUT
+	#Jennifer Alarcon 2/27
+	#Allows user to select an option from the Job Category Search field
 	#Returns input
 	def getJobInput
 		puts "Enter number corresponding to Job Category or press enter if nothing to input: "
-		puts "Enter the location number: 2 = instructional/faculty\n\t3 = adminstrative and professional\n\t4 = information technology\n\t5 = research\n\t6 = civil service"
+		puts "\n\t2 = instructional/faculty\n\t3 = adminstrative and professional\n\t4 = information technology\n\t5 = research\n\t6 = civil service\n\nJob category number:"
 		location = gets.chomp!
 	end
 
-	#Jennifer Alarcon
-	#GET WORKING TITLE
+	#Jennifer Alarcon 2/27
+	#Allows user to input terms to the Working Title search field
 	#Returns input
 	def getWorkingTitle
 		puts "Enter  working title or press enter if nothing to input: "
 		working_title = gets.chomp!
 	end
 
-	#Jennifer Alarcon
-	#GET JOB OPENING NUMBER
+	#Jennifer Alarcon 2/27
+	#Allows user to input a specific job number in the Job Opening Number search field
 	#Returns input
 	def getJobOpening
 		puts "Enter job opening number or press enter if nothing to input: "
 		jobopen_number = gets.chomp!
 	end
 
-	#Jennifer Alarcon
-	#GET JOB TYPE
+	#Jennifer Alarcon 2/27
+	#Allows user to pick a specific type of job from the Full/Part Time search field
 	#Returns input
 	def getJobType
 		puts "Enter number corresponding to position type or press enter if nothing to input: "
-		puts "\t4 = full time\n\t5 = part time\n\t6 = temporary\n\t7 = term"
+		puts "\n\t4 = full time\n\t5 = part time\n\t6 = temporary\n\t7 = term\n\nPosition type number:"
 		job_type = gets.chomp!
 	end
 
 
 
 
-	#Kenton Steiner
-	#email user the information 
+	#Kenton Steiner 2/23
+	#Allows user to get an email with an attachment of the results of the search
 	#Modifications: 
 		#Jennifer Alarcon - fixed yes/no option for user, proovie validation checking 
-
+		#Kenton Steiner - 2/28 - Added comments, updated the body and From fields of the resulting email
 	def emailUser()
+		# Intialization of the sending server of the email
 		options = { :address          => "smtp.gmail.com",
 	        :port                 => 587,
 	        :domain               => 'gmail.com',
@@ -252,13 +255,13 @@
 		 delivery_method :smtp, options
 		end
 
-		yesno = 0
+		# Ask if the user would like to receive an email of the results
 		puts "Would you like the results emailed to you? (0 for yes, 1 for no) "
 		yesno = gets.chomp
 
 		#Validate entry 
 		while /^[0-1]$/.match(yesno) == nil
-			puts "\nInvalid selection! Try again!"
+			puts "\nInvalid option! Try again!"
 			puts "Would you like the results emailed to you? (0 for yes, 1 for no) "
 			yesno = gets.chomp
 		end
@@ -267,13 +270,14 @@
 
 		if yesno == 0 
 	 		puts "What email would you like your results sent to? "
-	 		user_email = gets
-
+	 		user_email = gets.chomp!
+	 		
+	 		#send the email to the user email from the server initialized
 		 	Mail.deliver do
 		 		to 	user_email
-		 		from 'Server <mail@gmail.com>'
+		 		from 'Job Search Server <mail@gmail.com>'
 		 		subject 'OSU Job Search Results'
-		 		body ' '
+		 		body 'Please see the attachment for the results of your job search!'
 		 		add_file 'default.html'
 			end
 			puts "Sending email...\n"
@@ -286,7 +290,7 @@
 
 
 
-	#Jennifer Alarcon
+	#Jennifer Alarcon - 2/27
 	#Returns input
 	def main
 		crawl = Scraper.new
