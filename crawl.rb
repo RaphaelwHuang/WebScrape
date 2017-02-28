@@ -111,3 +111,5 @@ end
 
 # REMEMBER TO CLEAN UP THIS BOTTOM PORTION
 jobSite = Scraper.new
+x = jobSite.get_position_info
+jobSite.print_info_array(x)
