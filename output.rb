@@ -52,7 +52,6 @@
 
 		#GET POSITION INFO
 		if (position_keyword = getPosInfo) != ""
-			#******need to validiate 
 			crawl.search position_keyword
 		end
 		clearScreen
@@ -60,43 +59,72 @@
 		
 		#GET POSTED WITHIN
 		if(within = getPostedWithin) != ""
-			#******need to validiate 
-			crawl.posted_within within
+			#can only be 1 2 3
+			while /^(1|2|3)$/.match(within) == nil && within != ""
+				clearScreen
+				puts "⚠ Invalid Entry. ⚠ Please Try Again! "
+				within = getPostedWithin
+			end
+			if within != "" 
+				crawl.posted_within within
+			end
+
 		end
 		clearScreen
 
 		#GET LOCATION INFO
 		if (locationVal = getLocationInfo) != ""
-			#******need to validiate 
-			crawl.location locationVal
+			#1 -11
+			while /^([1-9]|10|11)$/.match(locationVal) == nil && locationVal != ""
+				clearScreen
+				puts "⚠ Invalid Entry. ⚠ Please Try Again! "
+				locationVal = getLocationInfo
+			end
+
+			if within != "" 
+				crawl.location locationVal
+			end
 		end
 		clearScreen
 
 		#GET UNIVERISTY TITLE
 		if (u_titleVal = getUnviversitytitle) != ""
-			#******need to validiate 
-			crawl.univeristy_title u_titleVal
+			crawl.university_title u_titleVal
 		end
 		clearScreen
 
 		#GET JOB CATEGORY INPUT
 		if(job_catVal = getJobInput) != ""
-			#******need to validiate 
-			crawl.job_category job_catVal
+			#3456
+			while /^[3-6]$/.match(job_catVal) == nil && job_catVal != ""
+				clearScreen
+				puts "⚠ Invalid Entry.⚠ Please Try Again! "
+				job_catVal = getJobInput
+			end
+			if within != "" 
+				crawl.job_category job_catVal
+			end
 		end 
 		clearScreen
 
 		#GET WORKING TITLE
 		if(working_titleVal = getWorkingTitle) != ""
-			#**need to validiate 
 			crawl.working_title working_titleVal
 		end
 		clearScreen
 
 		#GET JOB OPENING NUMBER
 		if(jobopen_num = getJobOpening) != ""
-			#**need to validate 
-			crawl.jobopen_number jobopen_num
+			#only numbers
+			while /^[\d]+$/.match(jobopen_num) == nil && jobopen_num != ""
+				clearScreen
+				puts "⚠ Invalid Entry.⚠ Please Try Again! "
+				jobopen_num = getJobOpening
+			end
+
+			if within != "" 
+				crawl.job_opening_number jobopen_num
+			end
 
 		end
 		clearScreen
@@ -104,7 +132,12 @@
 
 		#GET JOB TYPE
 		if(job_type = getJobType) != ""
-			#**need to validate 
+			#4-7
+			while /^[4-7]$/.match(job_type) == nil && job_type != ""
+				clearScreen
+				puts "⚠ Invalid Entry.⚠ Please Try Again! "
+				job_type = getJobType
+			end
 			crawl.job_time job_type
 		end
 		clearScreen
@@ -112,7 +145,6 @@
 		#GET EMAIL 
 		emailUser
 
-		clearScreen
 
 		puts "Thanks for filling out the information! Goodbye! :-)"
 
@@ -153,7 +185,7 @@
 	#Returns input
 	def getLocationInfo
 		puts "Enter number corresponding to location or press enter if nothing to input: "
-		puts "\t1 = Columbus\n\t2 = Lima\n\t3 = Mansfield\n\t4 = Marion\n\t5 = Newark\n\t6 = Wooster\n\t8 = Delaware\n\t9 = Springfield\n\t10 = Piketon\n\t11 = Dayton"
+		puts "\n\t1 = Columbus\n\t2 = Lima\n\t3 = Mansfield\n\t4 = Marion\n\t5 = Newark\n\t6 = Wooster\n\t8 = Delaware\n\t9 = Springfield\n\t10 = Piketon\n\t11 = Dayton"
 		location = gets.chomp!
 	end
 
@@ -161,7 +193,7 @@
 	#GET UNIVERISTY TITLE
 	#Returns input
 	def getUnviversitytitle
-		puts "Enter number corresponding to location or press enter if nothing to input: "
+		puts "Enter unviersity title or press enter if nothing to input: "
 		univeristy_title = gets.chomp!
 	end
 
@@ -202,8 +234,11 @@
 
 
 
-	#Kenton Steiner 
+	#Kenton Steiner
 	#email user the information 
+	#Modifications: 
+		#Jennifer Alarcon - fixed yes/no option for user, proovie validation checking 
+
 	def emailUser()
 		options = { :address          => "smtp.gmail.com",
 	        :port                 => 587,
@@ -220,7 +255,16 @@
 
 		yesno = 0
 		puts "Would you like the results emailed to you? (0 for yes, 1 for no) "
-		yesno = gets.chomp.to_i
+		yesno = gets.chomp
+
+		#Validate entry 
+		while /^[0-1]$/.match(yesno) == nil
+			puts "\nInvalid selection! Try again!"
+			puts "Would you like the results emailed to you? (0 for yes, 1 for no) "
+			yesno = gets.chomp
+		end
+
+		yesno = yesno.to_i
 
 		if yesno == 0 
 	 		puts "What email would you like your results sent to? "
@@ -233,8 +277,9 @@
 		 		body ' '
 		 		add_file 'default.html'
 			end
+			puts "Sending email...\n"
 		else 
-			puts "No email will be sent!"
+			puts "No email will be sent! :("
 		end
 
 		end
@@ -252,7 +297,7 @@
 
 		#Get array of all jobs
 		super_array= crawl.get_position_info
-		crawl.print_info_array(super_array)
+		#crawl.print_info_array(super_array) #testing purposes 
 		super_array.each do |sub_array|
 			#display array for single job listing
 	      display(sub_array)
