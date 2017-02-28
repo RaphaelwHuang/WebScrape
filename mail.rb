@@ -23,7 +23,7 @@ if yesno == 0
  		from 'Server <mail@gmail.com>'
  		subject 'OSU Job Search Results'
  		body ' '
- 		add_file 'default.html.erb'
+ 		add_file 'result.html'
 	end
 
 else 

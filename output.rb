@@ -15,29 +15,28 @@
 
 
 		#All the values
-		position  = array[0];
-		title 	= array[1];
+		position = array[0];
+		title = array[1];
 		department = array[2];
-		deadline 	= array[3];
-		number 	= array[4];
-		salary 	= array[5];
-		link 		= array[6];
+		deadline = array[3];
+		number = array[4];
+		salary = array[5];
+		link = array[6];
 
-
-		array.each do |i|
-			@content =format("
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>", position, title, department, deadline, number, salary, link)
-		end
+		@content +=format("
+		<tr><td>%s</td>
+		<td>%s</td>
+		<td>%s</td>
+		<td>%s</td>
+		<td>%s</td>
+		<td>%s</td>
+		<td><a href= %s >%s</a></td></tr>", position, title, department, deadline, number, salary, link, link)
 
 		renderer = ERB.new(erbContent)
 		result = renderer.result()
-		File.open(htmlFile, 'w') do |f|
+
+		#Change the outoput file name
+		File.open("result.html", 'w') do |f|
 			f.write(result)
 		end
 	end
@@ -298,10 +297,12 @@
 		#Get array of all jobs
 		super_array= crawl.get_position_info
 		#crawl.print_info_array(super_array) #testing purposes 
+
+		@content = ""
 		super_array.each do |sub_array|
-			#display array for single job listing
-	      display(sub_array)
-	    end
+		#display array for single job listing
+	      	display(sub_array)
+		end
 
 	end
 
