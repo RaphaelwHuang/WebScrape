@@ -14,7 +14,7 @@ Sunny Patel: Created the scraper class, which uses mechanize to scrape data from
 
 Kenton Steiner: wrote the email function, which asks the user if they want the results emailed to them, and attaches the HTML webpage of the results of their search to the email.
 
-Raphael Huang: Designed the HTML webpage where the results of the search are outputted, after scraping the data from the jobs website.
+Raphael Huang: Designed the HTML webpage and display function where the results of the search are outputted, after scraping the data from the jobs website by using Static Site Generation .erb to produce HTML webpage.
 
 Jenn Alarcon: Programming the main interface of the web scraping program, asks the user for input for the search fields, scrapes the website, and then returns the HTML webpage and emails the file to the specified email. 
 
