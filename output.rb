@@ -7,21 +7,23 @@
 
 
 	# Author Raphael Huang, Jennifer Alarcon    2/23
-	# Prints all information to HTML (need an array and everthing from crawl  need work)
+	# Prints all information to HTML (need an array and everything from crawl  need work)
+  # Modifications:
+  # Sunny Patel 2/28 - Cleaned up code to match style guides. call to emailUser moved
 	def display(array)
 		erbFile = 'default.html.erb'
 		htmlFile = File.basename(erbFile, '.erb')
-		erbContent = File.read(erbFile);
+		erbContent = File.read(erbFile)
 
 
 		#Intialize the values of the search fileds to array positions
-		position = array[0];
-		title = array[1];
-		department = array[2];
-		deadline = array[3];
-		number = array[4];
-		salary = array[5];
-		link = array[6];
+		position = array[0]
+		title = array[1]
+		department = array[2]
+		deadline = array[3]
+		number = array[4]
+		salary = array[5]
+		link = array[6]
 
 		# Row format of the HTML table on the output webpage
 		@content +=format("
@@ -34,11 +36,11 @@
 		<td><a href= %s >%s</a></td></tr>", position, title, department, deadline, number, salary, link, link)
 
 		renderer = ERB.new(erbContent)
-		result = renderer.result()
+		result = renderer.result
 
 		#Change the outoput file name
 		File.open("result.html", 'w') do |f|
-			f.write(result)
+			f.write result
 		end
 	end
 
@@ -141,12 +143,6 @@
 		end
 		clearScreen
 
-		#Ask for user to input their email address if they want results emailed 
-		emailUser
-
-
-		puts "Thanks for filling out the information! Goodbye! :-)"
-
 		end
 
 
@@ -194,7 +190,7 @@
 	#Allows user to enter terms in the University Title search field
 	#Returns input
 	def getUnviversitytitle
-		puts "Enter unviersity title or press enter if nothing to input: "
+		puts "Enter university title or press enter if nothing to input: "
 		univeristy_title = gets.chomp!
 	end
 
@@ -270,7 +266,7 @@
 
 		if yesno == 0 
 	 		puts "What email would you like your results sent to? "
-	 		user_email = gets.chomp!
+	 		user_email = gets.chomp
 	 		
 	 		#send the email to the user email from the server initialized
 		 	Mail.deliver do
@@ -278,7 +274,7 @@
 		 		from 'Job Search Server <mail@gmail.com>'
 		 		subject 'OSU Job Search Results'
 		 		body 'Please see the attachment for the results of your job search!'
-		 		add_file 'default.html'
+		 		add_file 'result.html'
 			end
 			puts "Sending email...\n"
 		else 
@@ -292,21 +288,26 @@
 
 	#Jennifer Alarcon - 2/27
 	#Returns input
+  # Modifications:
+  # Sunny Patel 2/28- Email now sends the appropriate file
 	def main
 		crawl = Scraper.new
 		getInput crawl
-		#submit form 
+		# submit form
 		crawl.submit_form
 
 		#Get array of all jobs
 		super_array= crawl.get_position_info
-		#crawl.print_info_array(super_array) #testing purposes 
 
 		@content = ""
 		super_array.each do |sub_array|
 		#display array for single job listing
 	      	display(sub_array)
-		end
+    end
+
+    # Email user if they wish to be emailed
+    emailUser
+    puts "Thanks for filling out the information! Goodbye! :-)"
 
 	end
 
