@@ -2,7 +2,7 @@
 ### Web Scraping
 
 ### Program Execution
-In order to run the code, first run the command "bundle install" in the command line to install the Ruby gems necessary for the project in the gemfile.  Then type "ruby output.rb" to run the main function, which will prompt you for search input and an email address to get the results sent to.  To view the results of the scrape, open the folder the project is contained is, and open the file results.html in a web browser, which will display the results of the scrape.  Also, if you inputted an email, check your email to see the results there as well!
+In order to run the code, first run the command "bundle install" in the command line to install the Ruby gems necessary for the project in the gemfile.  Then type "ruby output.rb" to run the main function, which will prompt you for search input and, optionally, an email address which will contain an .html file with the results (job postings related to input).  To view the results, open the directory of the project, open results.html in a web browser.  If a valid email was provided, check it's inbox for the same file that is created in the project directory.
 
 ### Roles
 * Overall Project Manager: Jennifer Alarcon
@@ -20,7 +20,7 @@ Raphael Huang: Designed the HTML webpage and display function where the results 
 
 Jenn Alarcon: Programming the main interface of the web scraping program, asks the user for input for the search fields, scrapes the website, and then returns the HTML webpage and emails the file to the specified email. 
 
-Tony Su: Write a ruby program that request a meeting with the university president.Test cases for testing the crawl class, overall bug fixing. 
+Tony Su: Test cases for testing the crawl class, overall bug fixing. Authored filler.rb which requested a meeting with the university president, which helped the team understand Forms in mechanize; however, team agreed to scrape jobsatosu.com instead.
 
 Kenton Steiner and Sunny Patel pair programmed the implementation of the search fields into the scraper class, so that more specialized searches could be performed, and added links to the job details page to the results. 
 
