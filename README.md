@@ -4,6 +4,8 @@
 ### Program Execution
 In order to run the code, first run the command "bundle install" in the command line to install the Ruby gems necessary for the project in the gemfile.  Then type "ruby output.rb" to run the main function, which will prompt you for search input and, optionally, an email address which will contain an .html file with the results (job postings related to input).  To view the results, open the directory of the project, open results.html in a web browser.  If a valid email was provided, check it's inbox for the same file that is created in the project directory.
 
+For the program that request meeting with the university president, simply type "ruby filler.rb" and the program will prompt you to enter the necessary information for the form. You will see a output string that starts with "Thank you", which means you successfully submit your request form.
+
 ### Roles
 * Overall Project Manager: Jennifer Alarcon
 * Coding Manager: Raphael Huang
