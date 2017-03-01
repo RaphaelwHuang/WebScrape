@@ -39,9 +39,7 @@
 		result = renderer.result
 
 		#Change the outoput file name
-		File.open("result.html", 'w') do |f|
-			f.write result
-		end
+		File.open("result.html", 'w') {|f|	f.write result}
 	end
 
 
@@ -53,9 +51,8 @@
 		clearScreen
 
 		# Get User input for Position Info field
-		if (position_keyword = getPosInfo) != ""
-			crawl.search position_keyword
-		end
+		crawl.search position_keyword if (position_keyword = getPosInfo) != ""
+		
 		clearScreen
 
 		
@@ -67,9 +64,7 @@
 				puts "\t\t⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
 				within = getPostedWithin
 			end
-			if within != "" 
-				crawl.posted_within within
-			end
+			crawl.posted_within within if within != ""
 
 		end
 		clearScreen
@@ -83,16 +78,12 @@
 				locationVal = getLocationInfo
 			end
 
-			if within != "" 
-				crawl.location locationVal
-			end
+			crawl.location locationVal if locationVal != ""
 		end
 		clearScreen
 
 		#Allow user to input a specific University title
-		if (u_titleVal = getUnviversitytitle) != ""
-			crawl.university_title u_titleVal
-		end
+		crawl.university_title u_titleVal if (u_titleVal = getUnviversitytitle) != ""
 		clearScreen
 
 		#Allow user to pick a specific job category
@@ -103,16 +94,12 @@
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				job_catVal = getJobInput
 			end
-			if within != "" 
-				crawl.job_category job_catVal
-			end
+			crawl.job_category job_catVal if job_catVal != ""
 		end 
 		clearScreen
 
 		#Allow user to input specific working title for a job
-		if(working_titleVal = getWorkingTitle) != ""
-			crawl.working_title working_titleVal
-		end
+		crawl.working_title working_titleVal if(working_titleVal = getWorkingTitle) != ""
 		clearScreen
 
 		#Allow user to input a specific job opening number
@@ -124,9 +111,7 @@
 				jobopen_num = getJobOpening
 			end
 
-			if within != "" 
-				crawl.job_opening_number jobopen_num
-			end
+			crawl.job_opening_number jobopen_num if jobopen_num != ""
 		end
 		clearScreen
 
@@ -139,19 +124,11 @@
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				job_type = getJobType
 			end
-			crawl.job_time job_type
+			crawl.job_time job_type if job_type != ""
 		end
 		clearScreen
 
 		end
-
-
-	#Jennifer Alarcon 2/27
-	#Checks to see if user entered appropriate location
-	#use regEx
-	def validiateLocation
-		return true
-	end
 
 	#Jennifer Alarcon 2/27
 	#Clears the screen for the next input prompt
@@ -236,7 +213,7 @@
 	#Modifications: 
 		#Jennifer Alarcon - fixed yes/no option for user, proovie validation checking 
 		#Kenton Steiner - 2/28 - Added comments, updated the body and From fields of the resulting email
-	def emailUser()
+	def emailUser
 		# Intialization of the sending server of the email
 		options = { :address          => "smtp.gmail.com",
 	        :port                 => 587,

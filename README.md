@@ -14,7 +14,7 @@ In order to run the code, first run the command "bundle install" in the command 
 
 Sunny Patel: Created the scraper class, which uses mechanize to scrape data from the website www.jobsatosu.com, and allows for the search options on the page to be utilized.  Data scraped from the website is stored in an array of arrays. Major bug fixing with email output; minor bug fixing with overall output.
 
-Kenton Steiner: wrote the email function, which asks the user if they want the results emailed to them, and attaches the HTML webpage of the results of their search to the email.  Updated documentation and made sure the program was commented accordingly.  
+Kenton Steiner: wrote the email function, which asks the user if they want the results emailed to them, and attaches the HTML webpage of the results of their search to the email.  Updated documentation and made sure the program was commented accordingly, overall code look through and modifying to make more terse. 
 
 Raphael Huang: Designed the HTML webpage and display function where the results of the search are outputted, after scraping the data from the jobs website by using Static Site Generation .erb to produce HTML webpage.  
 
