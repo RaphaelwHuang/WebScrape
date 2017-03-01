@@ -20,7 +20,7 @@ Raphael Huang: Designed the HTML webpage and display function where the results 
 
 Jenn Alarcon: Programming the main interface of the web scraping program, asks the user for input for the search fields, scrapes the website, and then returns the HTML webpage and emails the file to the specified email. 
 
-Tony Su: Test cases for testing the crawl class, overall bug fixing. 
+Tony Su: Write a ruby program that request a meeting with the university president.Test cases for testing the crawl class, overall bug fixing. 
 
 Kenton Steiner and Sunny Patel pair programmed the implementation of the search fields into the scraper class, so that more specialized searches could be performed, and added links to the job details page to the results. 
 
