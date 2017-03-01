@@ -5,6 +5,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
     mechanize (2.7.5)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
@@ -23,6 +25,9 @@ GEM
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     ntlm-http (0.1.1)
+    power_assert (0.2.6)
+    test-unit (3.1.5)
+      power_assert
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -32,8 +37,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  mail
   mechanize
   nokogiri
+  test-unit
 
 BUNDLED WITH
    1.13.7
