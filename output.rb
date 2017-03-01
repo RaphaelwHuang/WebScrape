@@ -51,8 +51,9 @@
 		clearScreen
 
 		# Get User input for Position Info field
-		crawl.search position_keyword if (position_keyword = getPosInfo) != ""
-		
+		 if (position_keyword = getPosInfo) != ""
+		 	crawl.search position_keyword
+		 end
 		clearScreen
 
 		
@@ -83,7 +84,9 @@
 		clearScreen
 
 		#Allow user to input a specific University title
-		crawl.university_title u_titleVal if (u_titleVal = getUnviversitytitle) != ""
+		if (u_titleVal = getUnviversitytitle) != ""
+				crawl.university_title u_titleVal 
+		end
 		clearScreen
 
 		#Allow user to pick a specific job category
@@ -99,7 +102,9 @@
 		clearScreen
 
 		#Allow user to input specific working title for a job
-		crawl.working_title working_titleVal if(working_titleVal = getWorkingTitle) != ""
+		if(working_titleVal = getWorkingTitle) != ""
+			crawl.working_title working_titleVal 
+		end
 		clearScreen
 
 		#Allow user to input a specific job opening number
