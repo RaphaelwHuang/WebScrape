@@ -9,7 +9,7 @@ input).  To view the results, open the directory of the project, open results.ht
 was provided, check it's inbox for the same file that is created in the project directory.
 
 For the program that request meeting with the university president, simply type "ruby filler.rb" and the program will
-prompt you to enter the necessary information for the form. You will see a output string that starts with "Thank you",
+prompt you to enter the necessary information for the form. You will see a output string that is "Thank you | Office of the President",
 which means you successfully submit your request form. Please do not spam the requests.
 
 ### Roles
@@ -53,7 +53,7 @@ making sure it was what I expected. get_position_links was tested by printing th
 in the pretty print. get_position_info was tested by searching different things (both with the code and on the website)
 and then printing the resulting array and comparing it with the website's search results.
 
-filler.rb - Tony Su: To test the program, simply run the program and enter any input you like. When entering the information for email address and phone number, you can try any invalid input to try to break it. After you are confident, you can enter the correct format and finish the rest of form. The console will print the title of the new page after your submit. If the title is "Thank you", it means the form is submitted successfully. If you submit the form many times, you will receive a email from the office of president.
+filler.rb - Tony Su: To test the program, simply run the program and enter any input you like. When entering the information for email address and phone number, you can try any invalid input to try to break it. After you are confident, you can enter the correct format and finish the rest of form. The console will print the title of the new page after your submit. If the title is "Thank you | Office of the President", it means the form is submitted successfully. If you submit the form many times, you will receive a email from the office of president.
 
 output.rb  - Jennifer Alarcon
 TEST1: Intially user enters nothing for each field and says yes to email
