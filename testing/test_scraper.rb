@@ -1,7 +1,7 @@
-require_relative '../crawl'
+require_relative '../scraper'
 require "test/unit"
 
-class TestCrawl < Test::Unit::TestCase
+class TestScraper < Test::Unit::TestCase
 
   # Author Tony Su    2/27
   # Test the intialization to make sure no exception is raised. 
