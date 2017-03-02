@@ -10,11 +10,11 @@ was provided, check it's inbox for the same file that is created in the project 
 
 For the program that request meeting with the university president, simply type "ruby filler.rb" and the program will
 prompt you to enter the necessary information for the form. You will see a output string that starts with "Thank you",
-which means you successfully submit your request form.
+which means you successfully submit your request form. Please do not spam the requests.
 
 ### Roles
 * Overall Project Manager: Jennifer Alarcon
-* Coding Manager: Raphael Huang
+* Coding Manager: Raphael Huang, Tony Su
 * Testing Manager: Sunny Patel
 * Documentation: Kenton Steiner
 
@@ -53,7 +53,7 @@ making sure it was what I expected. get_position_links was tested by printing th
 in the pretty print. get_position_info was tested by searching different things (both with the code and on the website)
 and then printing the resulting array and comparing it with the website's search results.
 
-scraper.rb:
+filler.rb - Tony Su: To test the program, simply run the program and enter any input you like. When entering the information for email address and phone number, you can try any invalid input to try to break it. After you are confident, you can enter the correct format and finish the rest of form. The console will print the title of the new page after your submit. If the title is "Thank you", it means the form is submitted successfully. If you submit the form many times, you will receive a email from the office of president.
 
 output.rb  - Jennifer Alarcon
 TEST1: Intially user enters nothing for each field and says yes to email
@@ -61,8 +61,6 @@ TEST2: Intially user enters nothing for each field and says no to email
 Other test cases: Only enter one field for each option, and not enter other fields. 
 Last Test Case: Enter something for every field. 
 Error Test cases: Enter input that's invalid  to make sure user cannot enter an option that is not presented. 
-
-
 
 Mail Functionality - Kenton Steiner: 
 I tested the email functionality by adding the mail feature to its own file, and then tried to send myself emails.  After figuring out that I was unable to send a message from localhost, I created a new gmail account to act as the server sending the emails.  Once I updated the mail function with the username and password for the gmail account, the emails would send, and then I added the feature of attaching a document to the email.  Lastly, I added a regular expression to validate the email address entered by the user, so that an error is returned if the email is invalid.
