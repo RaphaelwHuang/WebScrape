@@ -1,7 +1,7 @@
 	# Author: Raohael Huang/ Jennifer Alarcon  2/23
 
 	require 'erb'
-	require_relative 'crawl'
+	require_relative 'scraper'
 	require 'mail'
 
 
@@ -9,7 +9,7 @@
 	# Author Raphael Huang, Jennifer Alarcon    2/23
 	# Prints all information to HTML (need an array and everything from crawl  need work)
   # Modifications:
-  # Sunny Patel 2/28 - Cleaned up code to match style guides. call to emailUser moved
+  # Sunny Patel 2/28 - Cleaned up code to match style guides. call to email_user moved
 	def display(array)
 		erb_file = 'default.html.erb'
 		html_file = File.basename erb_file, '.erb'
@@ -46,23 +46,23 @@
 
 	#Jennifer Alarcon 2/27
 	#Get user input for email daily sign ups for job content
-	def getInput(crawl)
+	def get_input(crawl)
 
 		clear_screen
 		# Get User input for Position Info field
-		 if (position_keyword = getPosInfo) != ""
+		 if (position_keyword = get_pos_info) != ""
 		 	crawl.search position_keyword
 		 end
 		clear_screen
 
 		
 		#Job posted within search field options
-		if(within = getPostedWithin) != ""
+		if(within = get_posted_within) != ""
 			#Input can only be a digit between 1-3
 			while /^[1-3]$/.match(within) == nil && within != ""
 				clear_screen
 				puts "\t\t⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
-				within = getPostedWithin
+				within = get_posted_within
 			end
 			crawl.posted_within within if within != ""
 
@@ -70,12 +70,12 @@
 		clear_screen
 
 		#Allow user to choose job location
-		if (locationVal = getLocationInfo) != ""
+		if (locationVal = get_location_info) != ""
 			#Input must be a number between 1 and 11
 			while /^([1-9]|10|11)$/.match(locationVal) == nil && locationVal != ""
 				clear_screen
 				puts "\t\t\⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
-				locationVal = getLocationInfo
+				locationVal = get_location_info
 			end
 
 			crawl.location locationVal if locationVal != ""
@@ -83,36 +83,36 @@
 		clear_screen
 
 		#Allow user to input a specific University title
-		if (u_titleVal = getUnviversitytitle) != ""
+		if (u_titleVal = get_unviversity_title) != ""
 				crawl.university_title u_titleVal 
 		end
 		clear_screen
 
 		#Allow user to pick a specific job category
-		if(job_catVal = getJobInput) != ""
+		if(job_catVal = get_job_input) != ""
 			#Input must be a digit between 3 and 6
 			while /^[3-6]$/.match(job_catVal) == nil && job_catVal != ""
 				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
-				job_catVal = getJobInput
+				job_catVal = get_job_input
 			end
 			crawl.job_category job_catVal if job_catVal != ""
 		end 
 		clear_screen
 
 		#Allow user to input specific working title for a job
-		if(working_titleVal = getWorkingTitle) != ""
+		if(working_titleVal = get_working_title) != ""
 			crawl.working_title working_titleVal 
 		end
 		clear_screen
 
 		#Allow user to input a specific job opening number
-		if(jobopen_num = getJobOpening) != ""
+		if(jobopen_num = get_job_opening) != ""
 			#Input can only contain numbers
 			while /^\d+$/.match(jobopen_num) == nil && jobopen_num != ""
 				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
-				jobopen_num = getJobOpening
+				jobopen_num = get_job_opening
 			end
 
 			crawl.job_opening_number jobopen_num if jobopen_num != ""
@@ -121,12 +121,12 @@
 
 
 		#Allow user to pick the type of the job
-		if(job_type = getJobType) != ""
+		if(job_type = get_job_type) != ""
 			# Must be between 4-7
 			while /^[4-7]$/.match(job_type) == nil && job_type != ""
 				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
-				job_type = getJobType
+				job_type = get_job_type
 			end
 			crawl.job_time job_type if job_type != ""
 		end
@@ -144,7 +144,7 @@
 	#Jennifer Alarcon 2/27
 	#Ask user to enter information for the Keywords: search field on the website
 	#Returns input
-	def getPosInfo
+	def get_pos_info
 		puts "Enter the keywords for postion or press enter if nothing to enter: "
 		position_keyword = gets.chomp!
 	end
@@ -152,7 +152,7 @@
 	#Jennifer Alarcon 2/27
 	#Allows user to select a time period in the posted Within search field
 	#Returns input
-	def getPostedWithin
+	def get_posted_within
 		puts "Enter number corresponding to jobs posted within designated time or press enter if nothing to input: "
 		puts "\n\t1 = Last Day\n\t2 = Last Week\n\t3 = Last Month\n\nPosted within number:"
 		post_within = gets.chomp!
@@ -161,7 +161,7 @@
 	#Jennifer Alarcon 2/27
 	#Allows user to pick a location from the Location search field
 	#Returns input
-	def getLocationInfo
+	def get_location_info
 		puts "Enter number corresponding to location or press enter if nothing to input: "
 		puts "\n\t1 = Columbus\n\t2 = Lima\n\t3 = Mansfield\n\t4 = Marion\n\t5 = Newark\n\t6 = Wooster\n\t8 = Delaware\n\t9 = Springfield\n\t10 = Piketon\n\t11 = Dayton\n\nLocation number:"
 		location = gets.chomp!
@@ -170,7 +170,7 @@
 	#Jennifer Alarcon 2/27
 	#Allows user to enter terms in the University Title search field
 	#Returns input
-	def getUnviversitytitle
+	def get_unviversity_title
 		puts "Enter university title or press enter if nothing to input: "
 		univeristy_title = gets.chomp!
 	end
@@ -178,7 +178,7 @@
 	#Jennifer Alarcon 2/27
 	#Allows user to select an option from the Job Category Search field
 	#Returns input
-	def getJobInput
+	def get_job_input
 		puts "Enter number corresponding to Job Category or press enter if nothing to input: "
 		puts "\n\t2 = instructional/faculty\n\t3 = adminstrative and professional\n\t4 = information technology\n\t5 = research\n\t6 = civil service\n\nJob category number:"
 		location = gets.chomp!
@@ -187,7 +187,7 @@
 	#Jennifer Alarcon 2/27
 	#Allows user to input terms to the Working Title search field
 	#Returns input
-	def getWorkingTitle
+	def get_working_title
 		puts "Enter  working title or press enter if nothing to input: "
 		working_title = gets.chomp!
 	end
@@ -195,7 +195,7 @@
 	#Jennifer Alarcon 2/27
 	#Allows user to input a specific job number in the Job Opening Number search field
 	#Returns input
-	def getJobOpening
+	def get_job_opening
 		puts "Enter job opening number or press enter if nothing to input: "
 		jobopen_number = gets.chomp!
 	end
@@ -203,7 +203,7 @@
 	#Jennifer Alarcon 2/27
 	#Allows user to pick a specific type of job from the Full/Part Time search field
 	#Returns input
-	def getJobType
+	def get_job_type
 		puts "Enter number corresponding to position type or press enter if nothing to input: "
 		puts "\n\t4 = full time\n\t5 = part time\n\t6 = temporary\n\t7 = term\n\nPosition type number:"
 		job_type = gets.chomp!
@@ -217,7 +217,7 @@
 	#Modifications: 
 		#Jennifer Alarcon - fixed yes/no option for user, proovie validation checking 
 		#Kenton Steiner - 2/28 - Added comments, updated the body and From fields of the resulting email
-	def emailUser
+	def email_user
 		# Intialization of the sending server of the email
 		options = { :address          => "smtp.gmail.com",
 	        :port                 => 587,
@@ -273,7 +273,7 @@
   # Sunny Patel 2/28- Email now sends the appropriate file
 	def main
 		crawl = Scraper.new
-		getInput crawl
+		get_input crawl
 		# submit form
 		crawl.submit_form
 
@@ -287,7 +287,7 @@
     end
 
     # Email user if they wish to be emailed
-    emailUser
+    email_user
     puts "Thanks for filling out the information! Goodbye! :-)"
 
 	end

@@ -26,3 +26,5 @@ Tony Su: Test cases for testing the crawl class, overall bug fixing. Authored fi
 
 Kenton Steiner and Sunny Patel pair programmed the implementation of the search fields into the scraper class, so that more specialized searches could be performed, and added links to the job details page to the results. 
 
+### Testing
+scraper.rb:
