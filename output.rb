@@ -11,9 +11,9 @@
   # Modifications:
   # Sunny Patel 2/28 - Cleaned up code to match style guides. call to emailUser moved
 	def display(array)
-		erbFile = 'default.html.erb'
-		htmlFile = File.basename(erbFile, '.erb')
-		erbContent = File.read(erbFile)
+		erb_file = 'default.html.erb'
+		html_file = File.basename erb_file, '.erb'
+		erb_content = File.read erb_file 
 
 
 		#Intialize the values of the search fileds to array positions
@@ -35,7 +35,7 @@
 		<td>%s</td>
 		<td><a href= %s >%s</a></td></tr>", position, title, department, deadline, number, salary, link, link)
 
-		renderer = ERB.new(erbContent)
+		renderer = ERB.new(erb_content)
 		result = renderer.result
 
 		#Change the outoput file name
@@ -48,96 +48,95 @@
 	#Get user input for email daily sign ups for job content
 	def getInput(crawl)
 
-		clearScreen
-
+		clear_screen
 		# Get User input for Position Info field
 		 if (position_keyword = getPosInfo) != ""
 		 	crawl.search position_keyword
 		 end
-		clearScreen
+		clear_screen
 
 		
 		#Job posted within search field options
 		if(within = getPostedWithin) != ""
 			#Input can only be a digit between 1-3
 			while /^[1-3]$/.match(within) == nil && within != ""
-				clearScreen
+				clear_screen
 				puts "\t\t⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
 				within = getPostedWithin
 			end
 			crawl.posted_within within if within != ""
 
 		end
-		clearScreen
+		clear_screen
 
 		#Allow user to choose job location
 		if (locationVal = getLocationInfo) != ""
 			#Input must be a number between 1 and 11
 			while /^([1-9]|10|11)$/.match(locationVal) == nil && locationVal != ""
-				clearScreen
+				clear_screen
 				puts "\t\t\⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
 				locationVal = getLocationInfo
 			end
 
 			crawl.location locationVal if locationVal != ""
 		end
-		clearScreen
+		clear_screen
 
 		#Allow user to input a specific University title
 		if (u_titleVal = getUnviversitytitle) != ""
 				crawl.university_title u_titleVal 
 		end
-		clearScreen
+		clear_screen
 
 		#Allow user to pick a specific job category
 		if(job_catVal = getJobInput) != ""
 			#Input must be a digit between 3 and 6
 			while /^[3-6]$/.match(job_catVal) == nil && job_catVal != ""
-				clearScreen
+				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				job_catVal = getJobInput
 			end
 			crawl.job_category job_catVal if job_catVal != ""
 		end 
-		clearScreen
+		clear_screen
 
 		#Allow user to input specific working title for a job
 		if(working_titleVal = getWorkingTitle) != ""
 			crawl.working_title working_titleVal 
 		end
-		clearScreen
+		clear_screen
 
 		#Allow user to input a specific job opening number
 		if(jobopen_num = getJobOpening) != ""
 			#Input can only contain numbers
 			while /^\d+$/.match(jobopen_num) == nil && jobopen_num != ""
-				clearScreen
+				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				jobopen_num = getJobOpening
 			end
 
 			crawl.job_opening_number jobopen_num if jobopen_num != ""
 		end
-		clearScreen
+		clear_screen
 
 
 		#Allow user to pick the type of the job
 		if(job_type = getJobType) != ""
 			# Must be between 4-7
 			while /^[4-7]$/.match(job_type) == nil && job_type != ""
-				clearScreen
+				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
 				job_type = getJobType
 			end
 			crawl.job_time job_type if job_type != ""
 		end
-		clearScreen
+		clear_screen
 
 		end
 
 	#Jennifer Alarcon 2/27
 	#Clears the screen for the next input prompt
-	def clearScreen
+	def clear_screen
 		system "clear"
 	end
 
