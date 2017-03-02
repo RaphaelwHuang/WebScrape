@@ -52,3 +52,37 @@ outputs an x_path. This output was used as the parameter for search_for_selector
 making sure it was what I expected. get_position_links was tested by printing the links and comparing them to those
 in the pretty print. get_position_info was tested by searching different things (both with the code and on the website)
 and then printing the resulting array and comparing it with the website's search results.
+
+scraper.rb:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Mail Functionality - Kenton Steiner: 
+I tested the email functionality by adding the mail feature to its own file, and then tried to send myself emails.  After figuring out that I was unable to send a message from localhost, I created a new gmail account to act as the server sending the emails.  Once I updated the mail function with the username and password for the gmail account, the emails would send, and then I added the feature of attaching a document to the email.  Lastly, I added a regular expression to validate the email address entered by the user, so that an error is returned if the email is invalid.
+>>>>>>> Stashed changes

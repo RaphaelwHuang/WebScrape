@@ -4,8 +4,8 @@
 	require_relative 'scraper'
 	require 'mail'
 
-
-
+	# Regular Expression for validating an email
+	VALIDATE_EMAIL = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
 	# Author Raphael Huang, Jennifer Alarcon    2/23
 	# Prints all information to HTML (need an array and everything from crawl  need work)
   # Modifications:
@@ -216,8 +216,9 @@
 	#Kenton Steiner 2/23
 	#Allows user to get an email with an attachment of the results of the search
 	#Modifications: 
-		#Jennifer Alarcon - fixed yes/no option for user, proovie validation checking 
-		#Kenton Steiner - 2/28 - Added comments, updated the body and From fields of the resulting email
+	#Jennifer Alarcon - fixed yes/no option for user, proovie validation checking 
+	#Kenton Steiner - 2/28 - Added comments, updated the body and From fields of the resulting email
+	#Kenton Steiner - 3/2 - Added regular expression to validate the email entered by the user
 	def email_user
 		# Intialization of the sending server of the email
 		options = { :address          => "smtp.gmail.com",
@@ -237,18 +238,26 @@
 		puts "Would you like the results emailed to you? (0 for yes, 1 for no) "
 		yesno = gets.chomp
 
-		#Validate entry 
+		#Validate the entry for yes or no  
 		while /^[0-1]$/.match(yesno) == nil
 			puts "\nInvalid option! Try again!"
 			puts "Would you like the results emailed to you? (0 for yes, 1 for no) "
 			yesno = gets.chomp
+			clear_screen
 		end
 
 		yesno = yesno.to_i
-
+		# If the user entered a 0, ask them for thei email they want it sent to.
 		if yesno == 0 
+			# Ask the user for their email
 	 		puts "What email would you like your results sent to? "
 	 		user_email = gets.chomp
+	 		# Check the input with the regular expression for validating an email address
+	 		while VALIDATE_EMAIL.match(user_email) == nil && user_email != ""
+				clear_screen
+				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
+				user_email = gets.chomp
+			end
 	 		
 	 		#send the email to the user email from the server initialized
 		 	Mail.deliver do
