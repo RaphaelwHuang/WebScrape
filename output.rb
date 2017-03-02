@@ -35,7 +35,7 @@
 		<td>%s</td>
 		<td><a href= %s >%s</a></td></tr>", position, title, department, deadline, number, salary, link, link)
 
-		renderer = ERB.new(erb_content)
+		renderer = ERB.new erb_content
 		result = renderer.result
 
 		#Change the outoput file name
@@ -70,33 +70,33 @@
 		clear_screen
 
 		#Allow user to choose job location
-		if (locationVal = get_location_info) != ""
+		if (location_val = get_location_info) != ""
 			#Input must be a number between 1 and 11
-			while /^([1-9]|10|11)$/.match(locationVal) == nil && locationVal != ""
+			while /^([1-9]|10|11)$/.match(location_val) == nil && location_val != ""
 				clear_screen
 				puts "\t\t\⚠ Invalid Entry. ⚠ Please Try Again! \n\n"
-				locationVal = get_location_info
+				location_val = get_location_info
 			end
 
-			crawl.location locationVal if locationVal != ""
+			crawl.location location_val if location_val != ""
 		end
 		clear_screen
 
 		#Allow user to input a specific University title
-		if (u_titleVal = get_unviversity_title) != ""
-				crawl.university_title u_titleVal 
+		if (u_title = get_unviversity_title) != ""
+				crawl.university_title u_title
 		end
 		clear_screen
 
 		#Allow user to pick a specific job category
-		if(job_catVal = get_job_input) != ""
+		if(job_cat = get_job_input) != ""
 			#Input must be a digit between 3 and 6
-			while /^[3-6]$/.match(job_catVal) == nil && job_catVal != ""
+			while /^[3-6]$/.match(job_cat) == nil && job_cat != ""
 				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
-				job_catVal = get_job_input
+				job_cat = get_job_input
 			end
-			crawl.job_category job_catVal if job_catVal != ""
+			crawl.job_category job_cat if job_cat != ""
 		end 
 		clear_screen
 
@@ -107,15 +107,15 @@
 		clear_screen
 
 		#Allow user to input a specific job opening number
-		if(jobopen_num = get_job_opening) != ""
+		if(job_open_num = get_job_opening) != ""
 			#Input can only contain numbers
-			while /^\d+$/.match(jobopen_num) == nil && jobopen_num != ""
+			while /^\d+$/.match(job_open_num) == nil && job_open_num != ""
 				clear_screen
 				puts "\t\t⚠ Invalid Entry.⚠ Please Try Again! \n\n"
-				jobopen_num = get_job_opening
+				job_open_num = get_job_opening
 			end
 
-			crawl.job_opening_number jobopen_num if jobopen_num != ""
+			crawl.job_opening_number job_open_num if job_open_num != ""
 		end
 		clear_screen
 
@@ -142,11 +142,12 @@
 
 
 	#Jennifer Alarcon 2/27
+
 	#Ask user to enter information for the Keywords: search field on the website
 	#Returns input
 	def get_pos_info
 		puts "Enter the keywords for postion or press enter if nothing to enter: "
-		position_keyword = gets.chomp!
+		gets.chomp!
 	end
 
 	#Jennifer Alarcon 2/27
@@ -155,7 +156,7 @@
 	def get_posted_within
 		puts "Enter number corresponding to jobs posted within designated time or press enter if nothing to input: "
 		puts "\n\t1 = Last Day\n\t2 = Last Week\n\t3 = Last Month\n\nPosted within number:"
-		post_within = gets.chomp!
+		gets.chomp!
 	end
 
 	#Jennifer Alarcon 2/27
@@ -164,7 +165,7 @@
 	def get_location_info
 		puts "Enter number corresponding to location or press enter if nothing to input: "
 		puts "\n\t1 = Columbus\n\t2 = Lima\n\t3 = Mansfield\n\t4 = Marion\n\t5 = Newark\n\t6 = Wooster\n\t8 = Delaware\n\t9 = Springfield\n\t10 = Piketon\n\t11 = Dayton\n\nLocation number:"
-		location = gets.chomp!
+		gets.chomp!
 	end
 
 	#Jennifer Alarcon 2/27
@@ -172,7 +173,7 @@
 	#Returns input
 	def get_unviversity_title
 		puts "Enter university title or press enter if nothing to input: "
-		univeristy_title = gets.chomp!
+		gets.chomp!
 	end
 
 	#Jennifer Alarcon 2/27
@@ -181,7 +182,7 @@
 	def get_job_input
 		puts "Enter number corresponding to Job Category or press enter if nothing to input: "
 		puts "\n\t2 = instructional/faculty\n\t3 = adminstrative and professional\n\t4 = information technology\n\t5 = research\n\t6 = civil service\n\nJob category number:"
-		location = gets.chomp!
+		gets.chomp!
 	end
 
 	#Jennifer Alarcon 2/27
@@ -189,7 +190,7 @@
 	#Returns input
 	def get_working_title
 		puts "Enter  working title or press enter if nothing to input: "
-		working_title = gets.chomp!
+		gets.chomp!
 	end
 
 	#Jennifer Alarcon 2/27
@@ -197,7 +198,7 @@
 	#Returns input
 	def get_job_opening
 		puts "Enter job opening number or press enter if nothing to input: "
-		jobopen_number = gets.chomp!
+		gets.chomp!
 	end
 
 	#Jennifer Alarcon 2/27
@@ -206,7 +207,7 @@
 	def get_job_type
 		puts "Enter number corresponding to position type or press enter if nothing to input: "
 		puts "\n\t4 = full time\n\t5 = part time\n\t6 = temporary\n\t7 = term\n\nPosition type number:"
-		job_type = gets.chomp!
+		gets.chomp!
 	end
 
 
