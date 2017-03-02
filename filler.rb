@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'mechanize'
 
+# Author: Tony Su   2/21
+# Filler class will take user's input and fill the form.
 class Filler
     @@url = 'http://president.osu.edu/contact/meeting-request.html'
 
@@ -30,6 +32,7 @@ class Filler
     def contact_email
         puts "Please enter your email:"
         email = gets.chomp!
+        # check the format of the email address. The email address must be a osu email.
         until email =~ /[a-z][a-z]*\.[1-9]\d*@osu\.edu/
                  puts "Please enter a valid email address of osu, format should looks like su.342@osu.edu"
                  email = gets.chomp!
@@ -42,6 +45,7 @@ class Filler
     def contact_phone
         puts "Please enter your phone number:"
         phone = gets.chomp!
+        # check the format of the phone number
         until phone =~ /\d{3}-\d{3}-\d{4}/
                  puts "Please enter your phone number as xxx-xxx-xxxx where x is a number"
                  phone = gets.chomp!
@@ -135,7 +139,10 @@ class Filler
 
   end
 
+# Create a new variable.
 a = Filler.new()
+
+# Call each method to ask user to enter necessary information.
 a.contact_name
 a.contact_email
 a.contact_phone
@@ -147,6 +154,8 @@ a.contact_comment
 a.meeting_name
 a.meeting_purpose
 a.meeting_timeline
+
+# bypass the verfication
 a.bypass
 new_page = a.submit
 #print the title of the new page, if the title is "Thank You | Office of the President",
